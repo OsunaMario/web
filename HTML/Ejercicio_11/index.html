@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Información sobre el producto</title>
+</head>
+<body>
+<h1>Información sobre el producto</h1>
+<fieldset>
+	<legend>Datos básicos</legend>
+	<label for="nombre">Nombre</label><br>
+	<input type="text" name="nombre" placeholder="Mario Hiram" id="nombre" size="38">
+	<br><br>
+	<label for="descripcion">Descripción</label><br>
+	<textarea rows="6" cols="40" id="descripcion"></textarea>
+	<br><br>
+	<label for="foto">Foto</label>
+	<input type="file" name="foto" id="foto">
+	<br><br>
+	<input checked="" type="checkbox" name="contador" id="contador">
+	<label for="contador">Añadir contador de visitas</label>
+</fieldset>
+<br><br>
+<fieldset>
+	<legend>Datos económicos</legend>
+	<label for="precio">Precio</label>
+	<input type="text" name="precio" size="2" id="precio">
+	<label> € &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+	<label for="impuestos">Impuestos</label>
+	<select id="impuestos">
+		<option>4%</option>
+		<option>7%</option>
+		<option>16%</option>
+		<option>25%</option>
+	</select>
+	<br><br>
+	<label>Promoción</label> <br>
+	<input checked="" type="radio" name="promocion" value="1"> Ninguno <br>
+	<input type="radio" name="promocion" value="2"> Transporte gratuito <br>
+	<input type="radio" name="promocion" value="3"> Descuento 5% <br>
+</fieldset>
+</body>
+</html>
