@@ -1,0 +1,9 @@
+	li{
+	list-style-image: url("./assets/img.png");
+	border-style: groove;
+	width: 40%;
+	padding: 5px;
+}
+li:hover{
+	background-color: #eae9e98c;
+}

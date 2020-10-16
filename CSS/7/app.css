@@ -1,0 +1,15 @@
+li{
+	list-style: none;
+	display: block;
+	margin: 10px;
+}
+li a:link{
+	color: red;
+}
+li a:visited{
+	color: lightgrey;
+}
+li a:hover{
+	color: white;
+	background-color: red;
+}
