@@ -1,0 +1,55 @@
+#content{
+	background-color: red;
+	width: 80%;
+	max-width: 1000px;
+	margin: auto;
+}
+#header{
+	background-color: yellow;
+	width: 100%;
+}
+#body{
+	width: 100%;
+}
+#sidebar{
+	width: 20%;
+	display: inline-block;
+	background-color: red;
+	min-height: 200px;
+}
+#main{
+	width: 78%;
+	display: inline-block;
+	background-color: blue;
+	min-height: 200px;
+}
+#others{
+	width: 20%;
+	display: inline-block;
+	background-color: green;
+	min-height: 200px;
+}
+#menu{
+	background-color: orange;
+	width: 100%;
+	min-height: 50%;
+	float: left;
+	border-style:  solid;
+}
+#menu ul{
+	list-style: none;
+}
+#menu ul li{
+	display: inline;
+	margin-left: 10px;
+}
+#logo{
+	float: left;
+}
+#buscador{
+	float: right;
+}
+#sidebar h2{
+	padding: 0;
+	margin: 0;
+}
