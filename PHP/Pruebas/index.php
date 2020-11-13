@@ -10,8 +10,8 @@
 	<title>Site</title>
 </head>
 <body>
-	<h1>
-		Hola mi nombre es <?= $fullname ?>
-	</h1>
+	<?php 
+	echo "<h1>Hola mi nombre es $fullname</h1>";
+	?>
 </body>
 </html>
