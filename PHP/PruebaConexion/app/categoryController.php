@@ -6,35 +6,38 @@ if (!isset($_SESSION)) {
 include "connectionController.php";
 
 if (isset($_POST['action'])) {
+	if (isset($_POST['token']) && $_POST['token'] == $_SESSION['token']) {
+		$categoryController = new CategoryController();
 
-	$categoryController = new CategoryController();
+		switch ($_POST['action']) {
+			case 'store':
 
-	switch ($_POST['action']) {
-		case 'store':
+				$name = strip_tags($_POST['name']);
+				$description = strip_tags($_POST['description']);
+				$status = strip_tags($_POST['status']);
 
-			$name = strip_tags($_POST['name']);
-			$description = strip_tags($_POST['description']);
-			$status = strip_tags($_POST['status']);
+				$categoryController->store($name,$description,$status);
 
-			$categoryController->store($name,$description,$status);
+			break;
+			case 'update':
 
-		break;
-		case 'update':
+				$name = strip_tags($_POST['name']);
+				$description = strip_tags($_POST['description']);
+				$status = strip_tags($_POST['status']);
+				$id = strip_tags($_POST['id']);
 
-			$name = strip_tags($_POST['name']);
-			$description = strip_tags($_POST['description']);
-			$status = strip_tags($_POST['status']);
-			$id = strip_tags($_POST['id']);
+				$categoryController->update($id,$name,$description,$status);
+			break;
+			case 'destroy':
 
-			$categoryController->update($id,$name,$description,$status);
-		break;
-		case 'destroy':
+				$id = strip_tags($_POST['id']);
 
-			$id = strip_tags($_POST['id']);
-
-			$categoryController->destroy($id);
-		break;
+				$categoryController->destroy($id);
+			break;
+		}
 	}
+
+	
 
 }
 
@@ -153,5 +156,4 @@ class CategoryController
 		}
 	}
 }
-
-?> 
+?>

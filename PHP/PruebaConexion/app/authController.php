@@ -5,13 +5,15 @@ if (!isset($_SESSION)) {
 	session_start();
 }
 include_once "connectionController.php";
-if (isset($_POST['action'])) {
-	
-	$authController = new AuthController();
 
-	switch ($_POST['action']) {
+if (isset($_POST['action'])) {
+
+	if (isset($_POST['token']) && $_POST['token'] == $_SESSION['token']) {
+		$authController = new AuthController();
+
+		switch ($_POST['action']) {
 		case 'register':
-			
+
 			$name = strip_tags($_POST['name']);
 			$email = strip_tags($_POST['email']);
 			$password = strip_tags($_POST['password']);
@@ -20,13 +22,21 @@ if (isset($_POST['action'])) {
 
 		break;
 		case 'login':
-			$name = strip_tags($_POST['email']);
-			$email = strip_tags($_POST['password']);
+
+			$email = strip_tags($_POST['email']);
+			$password = strip_tags($_POST['password']);
 
 			$authController->access($email,$password);
-		break;
+
+		break; 
+		}
+	}else{
+
+		$_SESSION['error'] = 'de seguridad';
+		header("Location:". $_SERVER['HTTP_REFERER']);
 	}
 }
+
 class AuthController
 {
 	public function register($name,$email,$password){
@@ -36,11 +46,13 @@ class AuthController
 			if ($name !="" && $email !="" && $password != "") {
 
 				$originalPassword = $password;
-				$password = sha1($password.'tengo_mucha_8829');
+				$password = sha1($password.'wakwak_eee_123');
 
 				$query = "insert into users (name, email, password) value (?,?,?)";
 				$prepared_query = $conn->prepare($query);
 				$prepared_query->bind_param('sss',$name,$email,$password);
+
+
 				if ($prepared_query->execute()) {
 					
 					$this->access($email,$originalPassword);
@@ -65,10 +77,9 @@ class AuthController
 	public function access($email,$password)
 	{
 		$conn = connect();
-		// vvvvvvvvvvvvvvvvvvvvvv <-EN ESTE IF HAY UN ERROR 
 		if ($conn->connect_error) {
 			if ($email!="" && $password!="") {
-				$password = sha1($password. 'hekun_lel_123');
+				$password = sha1($password.'wakwak_eee_123');
 
 				$query = "select * from users where email = ? and password = ?";
 				$prepared_query = $conn->prepare($query);
@@ -77,6 +88,7 @@ class AuthController
 				if ($prepared_query->execute()) {
 					
 					$results = $prepared_query->get_result();
+
 					$user = $results->fetch_all(MYSQLI_ASSOC);
 
 					if (count($user)>0) {
@@ -86,7 +98,7 @@ class AuthController
 						$_SESSION['name'] = $user['name'];
 						$_SESSION['email'] = $user['email'];
 
-						header("Location:../categories");
+						header("Location:".BASE_PATH."categories");
 					}else{
 						$_SESSION['error'] = 'verifique los datos enviados';
 						header("Location:". $_SERVER['HTTP_REFERER']);
@@ -105,26 +117,10 @@ class AuthController
 		}else{
 			$_SESSION['error'] = 'verifique la conexion a la base de datos';
 
-			// header("Location:". $_SERVER['HTTP_REFERER']);
-			echo "X";
+			header("Location:". $_SERVER['HTTP_REFERER']);
+		
 		}
-		// "select * from users where email = ? and password = ?";
-
-		// if($user){
-
-		// 	$_SESSION['id'] = $user['id'];
-		// 	$_SESSION['name'] = $user['name'];
-		// 	$_SESSION['email'] = $user['email'];
-		// 	$_SESSION['role'] = $user['role'];
-
-		// 	if ($_SESSION['role']=="admin") {
-		// 		//header(string)
-		// 	}else{
-				
-		// 	}
-
-		// }
-
+		
 	}
 
 	public function logout()
@@ -133,7 +129,4 @@ class AuthController
 	}
 
 }
-
-
-
 ?>
